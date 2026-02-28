@@ -84,10 +84,6 @@ Commands are the workflow. Pre-implementation commands produce documents, never 
 - `/status` — Show project status (detects `[=]` items pending PR)
 - `/handoff` — Create a session handoff note for continuity
 
-### Setup & Sync
-- `/init` — Initialize a new project with stack definition and structure
-- `/update-workflow` — Update generic workflow files (commands, agents, skills) from the template repo
-
 ## Skills
 
 Skills are domain-specific coding standards. `/implement` loads the relevant skill before writing code for each phase. Skills work in two layers: generic domain principles, then stack-specific patterns on top.
@@ -119,8 +115,8 @@ Expected frontmatter format:
 ---
 name: django-backend
 description: Django views, serializers, models, management commands — concrete patterns for this project's Python backend
-stack: python, django          # matches against stack.md entries
-loaded_when: Working on .py files in the backend
+stack: python, django          # matched against stack.md to auto-load
+loaded_when: Working on .py files in the backend   # informational — helps maintainers understand scope
 ---
 ```
 
