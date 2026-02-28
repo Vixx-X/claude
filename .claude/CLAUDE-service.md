@@ -74,6 +74,10 @@ Commands are the workflow. Pre-implementation commands produce documents, never 
 ### Git Workflow
 - `/worktree` — Manage git worktrees (create, remove, list, clean)
 
+### Setup & Sync
+- `/init` — Initialize a new project with stack definition and structure
+- `/update-workflow` — Update generic workflow files (commands, agents, skills) from the template repo
+
 ### Quality & Maintenance
 - `/review` — Code review
 - `/tech-review` — Technical review of architecture or approach
