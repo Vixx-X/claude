@@ -7,8 +7,10 @@ This is a **hub repository** — the product brain. It holds epics, cross-team d
 The hub captures WHAT to build and WHY. Service repos figure out HOW. Work flows like this:
 
 ```
-/idea → /epic → (decisions + agreements) → service repos run /feature → /plan → /implement
+/idea → /epic --idea=IDEA-NNN (repeat until all MVP items covered) → service repos run /feature --epic=EPIC-NNN → /plan → /implement
 ```
+
+An idea's MVP scope usually requires multiple epics. Run `/epic --idea=IDEA-NNN` repeatedly — each run reads the idea, checks which MVP items already have epics, and proposes the next one. The idea status tracks progress: `draft` → `active` (first epic) → `fulfilled` (all items covered).
 
 The hub's job is done when an epic is documented and agreements are written. Each service repo takes it from there independently.
 
@@ -46,7 +48,7 @@ Commands are the workflow. Each one has a specific job and a hard boundary: pre-
 - `/proposal` — Business proposal from an idea or feature — scope, timeline, infrastructure, costs
 
 ### Epic & Feature Flow
-- `/epic` — Define a product initiative, identify affected repos, create cross-team agreements
+- `/epic` — Define a product initiative, identify affected repos, create cross-team agreements. Use `--idea=IDEA-NNN` to create epics from MVP items (tracks coverage, updates idea status)
 - `/feature` — Spec out a feature (can be hub-level or driven by an epic)
 
 ### Planning & Implementation (for service repos)
@@ -60,6 +62,8 @@ Commands are the workflow. Each one has a specific job and a hard boundary: pre-
 - `/worktree` — Manage git worktrees (create, remove, list, clean)
 
 ### Quality & Maintenance
+- `/check` — Knowledge check: quiz the developer on technical decisions in the current work. Auto-triggers in `/plan` and `/pr` based on `~/.claude/settings.json` `knowledgeCheck` setting.
+- `/validate` — Compare feature spec against implementation — gap report. Use `--fix` to create stories from gaps.
 - `/review` — Code review
 - `/tech-review` — Technical review of architecture or approach
 - `/refine` — Iterate on an existing document
@@ -68,6 +72,9 @@ Commands are the workflow. Each one has a specific job and a hard boundary: pre-
 - `/docs` — Generate project documentation
 - `/status` — Show project status (detects `[=]` items pending PR)
 - `/handoff` — Create a session handoff note for continuity
+
+### Project Knowledge
+- `/decisions` — Query project conventions and design patterns. `/decisions branching`, `/decisions api error handling`. Use `--verbose` for code examples.
 
 ### Setup & Sync
 - `/init` — Initialize a new project with stack definition and structure
@@ -78,6 +85,7 @@ Commands are the workflow. Each one has a specific job and a hard boundary: pre-
 Skills are domain-specific standards loaded by implementation commands. In the hub, they're mostly relevant for git operations:
 
 - **git-practices** — Branch naming (`<type>/<ticket-id>`), commit format, PR format, worktree conventions, backlog lock format. Loaded by `/commit`, `/pr`, `/next`, `/worktree`.
+- **knowledge-check** — Protocol for validating developer understanding of AI-generated decisions. Loaded by `/plan` (after approval), `/pr` (before submission), and standalone `/check`. Trigger controlled by `~/.claude/settings.json` `knowledgeCheck` setting (`"on"`, `"strict"`, or `"off"`).
 
 The coding skills (`api-design`, `ui-design`, `data-layer`, `service-layer`) exist for service repos. They're loaded by `/implement` in those repos.
 

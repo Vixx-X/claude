@@ -79,6 +79,8 @@ Commands are the workflow. Pre-implementation commands produce documents, never 
 - `/update-workflow` — Update generic workflow files (commands, agents, skills) from the template repo
 
 ### Quality & Maintenance
+- `/check` — Knowledge check: quiz the developer on technical decisions in the current work. Auto-triggers in `/plan` and `/pr` based on `~/.claude/settings.json` `knowledgeCheck` setting.
+- `/validate` — Compare feature spec against implementation — gap report with frontmatter. Use `--fix` to create backlog stories from gaps.
 - `/review` — Code review
 - `/tech-review` — Technical review of architecture or approach
 - `/refine` — Iterate on an existing document
@@ -87,6 +89,9 @@ Commands are the workflow. Pre-implementation commands produce documents, never 
 - `/docs` — Generate project documentation (setup guides, config references, runbooks)
 - `/status` — Show project status (detects `[=]` items pending PR)
 - `/handoff` — Create a session handoff note for continuity
+
+### Project Knowledge
+- `/decisions` — Query project conventions and design patterns. `/decisions go practices`, `/decisions testing`, `/decisions DI`. Use `--verbose` for code examples, `--diff` to see what's customized vs template defaults.
 
 ## Skills
 
@@ -102,6 +107,7 @@ Skills are domain-specific coding standards. `/implement` loads the relevant ski
 | **data-layer** | Data principles: schema design, migration safety, query performance | Working on models, migrations, DB code |
 | **service-layer** | Service principles: boundaries, transactions, side effects, business rules | Working on services, use cases, domain logic |
 | **checkpoints** | Progress checkpointing for long-running commands | `/implement`, `/debug`, `/feature`, `/plan`, `/epic` |
+| **knowledge-check** | Developer understanding validation — questions, evaluation, tutoring, logging | `/plan` (after approval), `/pr` (before submission), `/check` (standalone) |
 
 ### Project Skills
 
